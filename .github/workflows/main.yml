@@ -1,4 +1,55 @@
-# .github/workflows/deploy.yml
+# # .github/workflows/deploy.yml
+# name: Deploy Next.js application
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout source code
+#         uses: actions/checkout@v4
+
+#       - name: Build and tag Docker image
+#         run: |
+#           docker build -t integrationninjas/nextjs-app:latest .
+
+#       - name: Log in to Docker Hub
+#         env:
+#           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+#           DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
+#         run: |
+#           echo "$DOCKERHUB_PAT" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+
+#       - name: Publish image to Docker Hub
+#         run: |
+#           docker push integrationninjas/nextjs-app:latest
+
+#   deploy:
+#     needs: build
+#     runs-on: self-hosted
+#     steps:
+#       - name: Pull latest image
+#         run: |
+#           docker pull integrationninjas/nextjs-app:latest
+
+#       - name: Remove old container if exists
+#         run: |
+#           docker rm -f nextjs-app-container || true
+
+#       - name: Run container
+#         run: |
+#           docker run -d \
+#             -p 3000:3000 \
+#             --name nextjs-app-container \
+#             integrationninjas/nextjs-app:latest
+
+
+
+
 name: Deploy Next.js application
 
 on:
@@ -9,13 +60,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Build and tag Docker image
         run: |
-          docker build -t integrationninjas/nextjs-app:latest .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest .
 
       - name: Log in to Docker Hub
         env:
@@ -26,23 +78,25 @@ jobs:
 
       - name: Publish image to Docker Hub
         run: |
-          docker push integrationninjas/nextjs-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
 
   deploy:
     needs: build
-    runs-on: self-hosted
+    runs-on: self-hosted  # This assumes you're running a GitHub self-hosted runner
+
     steps:
       - name: Pull latest image
         run: |
-          docker pull integrationninjas/nextjs-app:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
 
-      - name: Remove old container if exists
+      - name: Stop and remove old container
         run: |
           docker rm -f nextjs-app-container || true
 
-      - name: Run container
+      - name: Run new container
         run: |
           docker run -d \
             -p 3000:3000 \
             --name nextjs-app-container \
-            integrationninjas/nextjs-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
+
