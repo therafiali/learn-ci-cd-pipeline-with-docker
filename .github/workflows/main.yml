@@ -76,27 +76,26 @@ jobs:
         run: |
           echo "$DOCKERHUB_PAT" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
 
-      - name: Publish image to Docker Hub
+      - name: Push image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
 
   deploy:
     needs: build
-    runs-on: self-hosted  # This assumes you're running a GitHub self-hosted runner
+    runs-on: self-hosted  # Your self-hosted server
 
     steps:
       - name: Pull latest image
         run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
+          sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
 
       - name: Stop and remove old container
         run: |
-          docker rm -f nextjs-app-container || true
+          sudo docker rm -f nextjs-app-container || true
 
       - name: Run new container
         run: |
-          docker run -d \
+          sudo docker run -d \
             -p 3000:3000 \
             --name nextjs-app-container \
             ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app:latest
-
