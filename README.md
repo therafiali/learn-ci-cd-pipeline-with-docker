@@ -48,6 +48,8 @@ A simple Next.js app deployed on AWS EC2 using Docker and GitHub Actions.
      ```
    * Confirm **Idle** under **Actions > Runners**.
 
+![Githib Actions](runner.png)
+
 ---
 
 ## 🐳 Dockerfile
@@ -114,6 +116,7 @@ jobs:
 ## 🚀 Deployment URL(Example)
 
 [http://ec2-13-48-13-19.eu-north-1.compute.amazonaws.com:3000/](http://ec2-13-48-13-19.eu-north-1.compute.amazonaws.com:3000/)
+![Preview](live.png)
 
 ---
 
