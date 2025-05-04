@@ -127,4 +127,5 @@ jobs:
 * AWS EC2: [https://docs.aws.amazon.com/ec2/](https://docs.aws.amazon.com/ec2/)
 * My DockerFile: [https://github.com/therafiali/learn-ci-cd-pipeline-with-docker/blob/main/Dockerfile](https://github.com/therafiali/learn-ci-cd-pipeline-with-docker/blob/main/Dockerfile)
 * My CICD pipeline code: [https://github.com/therafiali/learn-ci-cd-pipeline-with-docker/blob/main/.github/workflows/main.yml](https://github.com/therafiali/learn-ci-cd-pipeline-with-docker/blob/main/.github/workflows/main.yml)
+* Medium: [https://medium.com/@mudasirhaji/set-up-a-cicd-pipeline-using-jenkinsfile-and-docker-on-aws-ec2-555eb56d50c2](https://medium.com/@mudasirhaji/set-up-a-cicd-pipeline-using-jenkinsfile-and-docker-on-aws-ec2-555eb56d50c2)
 
