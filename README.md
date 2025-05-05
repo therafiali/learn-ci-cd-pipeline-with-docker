@@ -29,9 +29,8 @@ A simple Next.js app deployed on AWS EC2 using Docker and GitHub Actions.
    **Install Docker**:
 
    ```bash
-   sudo yum update -y
-   sudo amazon-linux-extras install docker -y
-   sudo service docker start
+   sudo apt-get update && sudo apt-get install ocker.io -y && sudo systemctl start docker
+sudo systemctl enable docker
    ```
 
 3. **GitHub Runner**:
